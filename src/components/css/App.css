@@ -1,18 +1,281 @@
-.sidebar span
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;700&display=swap');
+
+*
 {
-	display: inline-block;
-	padding: 1rem 1rem;
-	margin: 0 .3rem;
-	background-color: #333;
-	color: #FFF;
+	box-sizing: border-box;
+}
+
+body
+{
+	margin: 0;
+	padding: 0;
+	font-family: Poppins;
+	overflow: hidden;
+}
+
+.reddit-client-container
+{
+	display: flex;
+	background-color: #eee;
+	height: 100vh;
+	width: 100vw;
+}
+
+.sidebar
+{
+	position: relative;
+	height: 100%;
+	min-width: 250px;
+	background-color: #FFF;
+	box-shadow: 0 0 20px 0 rgba( 0,0,0,.2 );
+}
+
+.sidebar .reddit-logo
+{
+	width: 60%;
+	height: auto;
+	margin: 5rem 1rem;
+	display: block;
+}
+
+.sidebar ul
+{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+
+.sidebar li
+{
+	position: relative;
+	display: block;
+	padding: 1rem 2rem;
+	color: rgba( 0,0,0,.4 );
 	text-decoration: none;
 	cursor: pointer;
+	text-transform: uppercase;
+	transition: .3s;
+}
+
+.sidebar li:hover, .sidebar li.active
+{
+	color: #000;
+	background-color: rgba( 0,0,0,.1 );
+}
+
+.sidebar li.active:before
+{
+	content: '';
+	display: block;
+	position: absolute;
+	height: 100%;
+	width: 3px;
+	left: 0;
+	top: 0;
+	background-color: #F55121;
+}
+
+.sidebar li i
+{
+	margin-right: .5rem;
+}
+
+.content
+{
+	padding: 2rem 4rem;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.top-bar
+{
+	display: flex;
+	margin: 0 0 2rem 0;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.top-bar .listing-name
+{
+	text-transform: capitalize;
+	margin: 0;
+}
+
+.top-bar-right
+{
+	display: flex;
+	align-items: center;
+}
+
+.search-container
+{
+	margin-right: 2rem;
+}
+
+.search-input
+{
+	font-family: Poppins;
+	border: none;
+	background-color: #FFF;
+	border-radius: 100rem;
+	padding: .5rem 1rem;
+	box-shadow: 0 0 20px 0 rgba( 0,0,0,.1 );
+}
+
+.profile-container
+{
+	font-size: 1.2rem;
+}
+
+.profile-container > i
+{
+	background-color: #F55121;
+	color: #FFF;
+	padding: .2rem;
+	border-radius: 100rem;
+	margin-right: .3rem;
+	font-size: 1.2em;
+	display: inline-block;
+}
+
+.posts-container
+{
+	position: relative;
+	overflow-y: auto;
+	border-radius: .5rem;
+	background-color: #FFF;
+	width: 100%;
+	height: 100%;
 }
 
 .reddit-post
 {
-	background-color: #EEE;
+	display: flex;
+	align-items: center;
 	padding: 2rem 4rem;
-	box-shadow: 0 0 10px 0 rgba(0, 0, 0, .3);
-	margin: 2rem 0;
+	border-bottom: 1px solid rgba( 0,0,0,.05 );
+}
+
+.reddit-post > img
+{
+	width: 140px;
+	flex-shrink: 0;
+	height: auto;
+	margin-right: 2rem;
+	border-radius: .5rem;
+}
+
+.reddit-post .post-title
+{
+	margin: 0;
+}
+
+.reddit-post .post-title a
+{
+	color: inherit;
+	text-decoration: none;
+}
+
+.reddit-post .post-title a:hover
+{
+	text-decoration: underline;
+}
+
+.reddit-post .post-title .flair
+{
+	background-color: #eee;
+	border-radius: 100rem;
+	padding: .1rem .5rem ;
+	margin-right : .5rem;
+	font-size: 1rem;
+}
+
+.reddit-post .post-author .muted
+{
+	color: rgba( 0,0,0,.3 );
+}
+
+.reddit-post .post-author .la-user
+{
+	background-color: rgba( 0,0,0,.4 );
+	color: #FFF;
+	margin: 0 .3rem;
+	display: inline-block;
+	border-radius: 100rem;
+	padding: .05rem;
+}
+
+.reddit-post .post-author a
+{
+	font-weight: bold;
+	color: #F55121;
+	text-decoration: none;
+	transition: .3s;
+}
+
+.reddit-post .post-author a:hover, .reddit-post .post-author a:focus
+{
+	text-decoration: underline;
+	/* color: #333; */
+}
+
+.reddit-post .post-score
+{
+	margin-left: auto;
+	position: relative;
+	text-align: center;
+}
+
+.reddit-post .post-score .upvote, .reddit-post .post-score .downvote
+{
+	color: #EEE;
+	height: 0;
+	width: 0;
+	border: .7rem solid transparent;
+	position: absolute;
+	left: 50%;
+	margin-left: -.7rem;
+	cursor: pointer;
+	transition: .3s;
+}
+
+.reddit-post .post-score .upvote:hover, .reddit-post .post-score .downvote:hover
+{
+	color: #000;
+}
+
+.reddit-post .post-score .upvote
+{
+	border-bottom-color: currentColor;
+	bottom: 100%;
+	margin-bottom: .2rem;
+}
+
+.reddit-post .post-score .downvote
+{
+	border-top-color: currentColor;
+	top: 100%;
+	margin-top: .2rem;
+}
+
+.load-more-btn
+{
+	display: table;
+	position: relative;
+	margin: 2rem auto;
+	background-color: #F55121;
+	color: #FFF;
+	border: none;
+	padding: .5rem 1rem;
+	font-family: Poppins;
+	font-size: 1.1rem;
+	transition: .3s;
+}
+
+.load-more-btn:hover
+{
+	background-color: #333;
 }

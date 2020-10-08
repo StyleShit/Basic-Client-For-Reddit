@@ -1,24 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { redditGet } from '../Utils/Utils';
 import Sidebar from './Sidebar';
-import Post from './Post';
+import Content from './Content';
 
 import './css/App.css';
 
 function App() 
 {
+	const postsContainer = useRef( null );
 	const [ posts, setPosts ] = useState( [] );
 	const [ listingData, setListingData ] = useState( {} );
 
-	// laod listing by name
+	// lodd listing by name
 	// set `next = true` to load next page of current listing
 	function loadListing( listing, next = false )
 	{
 		var params = next ? { after: listingData.after } : {};
 
 		redditGet( listing, params ).then( json => {
-            setPosts( prev => [ ...prev, ...json.data.children ]);
-            setListingData({ listing, after: json.data.after });
+			
+			// append new posts
+			if( next )
+				setPosts( prev => [ ...prev, ...json.data.children ]);
+				
+			// remove previous posts and put the new ones
+			else
+			{
+				setPosts( json.data.children );
+				postsContainer.current.scrollTop = 0;
+			}
+
+				
+			setListingData({ listing, after: json.data.after });
         });
 	}
 
@@ -29,27 +42,18 @@ function App()
 	}
 
 
+	// load default listing on mount
+	useEffect( () => {
+		loadListing( 'hot' ); 
+
+		// eslint-disable-next-line
+	}, []);
+
 	return (
-		<>
-			<h1>
-				Reddit Client!
-			</h1>
-			<Sidebar loadListing={ loadListing } />
-
-			{
-				// print all posts
-				posts.map( ( post ) => {
-					return (
-						<Post key={ post.data.id } post={ post } />
-					)
-				})
-			}
-
-			{	// show load more button only if there is an active listing
-				listingData.listing &&
-					<button onClick={ loadMore }>Load More</button>
-			}
-		</>
+		<div className="reddit-client-container">
+			<Sidebar loadListing={ loadListing } listingData={ listingData } />
+			<Content listingData={ listingData } posts={ posts } loadMore={ loadMore } postsContainer={ postsContainer } />
+		</div>
 	);
 }
 
