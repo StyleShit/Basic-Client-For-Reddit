@@ -1,6 +1,8 @@
 # Reddit Basic Client
 
-A small basic client for reddit with a new design.
+A small basic client for reddit with a new design, inspired from this Dribble shot by Dmitriy Kharaberyush:
+
+https://dribbble.com/shots/3257279-Reddit-Trainy
 
 
 ## Installation:
