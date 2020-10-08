@@ -3,6 +3,11 @@
 A small basic client for reddit with a new design.
 
 
+## Installation:
+
+Clone this git, then `npm install && npm start`
+
+
 ## Available commands:
 
 You can just use the default well-known npm commands:
