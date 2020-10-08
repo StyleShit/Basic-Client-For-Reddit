@@ -10,12 +10,19 @@ function App()
 	const postsContainer = useRef( null );
 	const [ posts, setPosts ] = useState( [] );
 	const [ listingData, setListingData ] = useState( {} );
+	const [ isLoading, setIsLoading ] = useState( true );
 
 	// lodd listing by name
 	// set `next = true` to load next page of current listing
 	function loadListing( listing, next = false )
 	{
+		setIsLoading( true );
 		var params = next ? { after: listingData.after } : {};
+
+		if( !next )
+		{
+			setPosts( [] );
+		}
 
 		redditGet( listing, params ).then( json => {
 			
@@ -32,12 +39,15 @@ function App()
 
 				
 			setListingData({ listing, after: json.data.after });
+
+			setIsLoading( false );
         });
 	}
 
 	// load next page for current listing
 	function loadMore()
 	{
+		setIsLoading( true );
 		loadListing( listingData.listing, true );
 	}
 
@@ -52,7 +62,7 @@ function App()
 	return (
 		<div className="reddit-client-container">
 			<Sidebar loadListing={ loadListing } listingData={ listingData } />
-			<Content listingData={ listingData } posts={ posts } loadMore={ loadMore } postsContainer={ postsContainer } />
+			<Content listingData={ listingData } posts={ posts } loadMore={ loadMore } postsContainer={ postsContainer } isLoading={ isLoading } />			
 		</div>
 	);
 }

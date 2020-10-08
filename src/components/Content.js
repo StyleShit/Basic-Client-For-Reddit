@@ -1,14 +1,14 @@
 import React from 'react';
 import Post from './Post';
 
-export default function Content({ listingData, posts, loadMore, postsContainer })
+export default function Content({ listingData, posts, loadMore, postsContainer, isLoading })
 {
     return (
         <div className="content">
 
             <div className="top-bar">
                 <h2 className="listing-name">
-                    { listingData.listing ? listingData.listing : 'Loading...' }
+                    { listingData.listing && !isLoading ? listingData.listing : 'Loading...' }
                 </h2>
 
                 <div className="top-bar-right">
@@ -36,8 +36,13 @@ export default function Content({ listingData, posts, loadMore, postsContainer }
                 }
 
                 {	// show load more button only if there is an active listing
-                    listingData.listing &&
+                    listingData.listing && !isLoading &&
                         <button className="load-more-btn" onClick={ loadMore }>Load More</button>
+                }
+
+                {   // show loader if the application is loading
+                    isLoading &&
+                    <div className="loader"></div>
                 }
             </div>
         </div>
