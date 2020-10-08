@@ -31,6 +31,7 @@ export default function Post({ post:{ data } })
             break;
     }
 
+    
     // format big numbers with K & M
     function formatNumber( num )
     {
@@ -44,6 +45,7 @@ export default function Post({ post:{ data } })
     }
 
 
+    // return the time passed since `date` in words
     function timeSince( date )
     {
         var seconds = Math.floor((new Date() - date) / 1000);
@@ -79,6 +81,7 @@ export default function Post({ post:{ data } })
 
         return Math.floor(seconds) + " seconds";
       }
+
 
     // when the post was created
     var createdAt = new Date( data.created_utc * 1000 );
