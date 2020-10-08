@@ -100,8 +100,10 @@ body
 
 .top-bar .listing-name
 {
-	text-transform: capitalize;
+	/* text-transform: capitalize; */
 	margin: 0;
+	border-left: 4px solid #F55121;
+	padding: 0 1rem;
 }
 
 .top-bar-right
@@ -113,16 +115,52 @@ body
 .search-container
 {
 	margin-right: 2rem;
+	position: relative;
 }
 
-.search-input
+.search-container .search-input
 {
 	font-family: Poppins;
+	position: relative;
+	z-index: 2;
 	border: none;
 	background-color: #FFF;
 	border-radius: 100rem;
 	padding: .5rem 1rem;
+	width: 17rem;
 	box-shadow: 0 0 20px 0 rgba( 0,0,0,.1 );
+}
+
+.search-container .autocomplete-suggestions
+{
+    position: absolute;
+    z-index: 1;
+	background-color: #FFF;
+	font-size: .9rem;
+    width: 90%;
+    left: 5%;
+    box-shadow: 0 0 10px 0 rgba( 0,0,0,.2);
+}
+
+.search-container .autocomplete-suggestions .suggestion
+{
+	display: block;
+	padding: .7rem;
+	cursor: pointer;
+	transition: .3s;
+}
+
+.search-container .autocomplete-suggestions .suggestion:hover, .search-container .autocomplete-suggestions .current-suggestion
+{
+	background-color: rgba( 0,0,0,.1 );
+}
+
+.search-container .autocomplete-suggestions .suggestion > img
+{
+	height: 1em;
+	width: auto;
+	border-radius: 100%;
+	margin-right: .5rem;
 }
 
 .profile-container

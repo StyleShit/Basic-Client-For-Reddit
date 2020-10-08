@@ -1,8 +1,17 @@
 import React from 'react';
 import Post from './Post';
+import AutoComplete from './AutoComplete';
 
-export default function Content({ listingData, posts, loadMore, postsContainer, isLoading })
+export default function Content({ listingData, posts, loadMore, postsContainer, isLoading, loadListing })
 {
+
+    // a callback to trigger when an item was selected from the autocomplete.
+    function onItemSelected( item )
+	{
+        // load the selected subrteddit
+		loadListing( item.display_name_prefixed );
+    }
+    
     return (
         <div className="content">
 
@@ -14,8 +23,8 @@ export default function Content({ listingData, posts, loadMore, postsContainer, 
                 <div className="top-bar-right">
                     
                     <div className="search-container">
-                        <form action="#">
-                            <input type="text" className="search-input" placeholder="Search" />
+                        <form action="#" onSubmit={ e => e.preventDefault() }>
+                            <AutoComplete className="search-input" placeholder="Search" onItemSelected={ onItemSelected } />
                         </form>
                     </div>
 
@@ -35,12 +44,14 @@ export default function Content({ listingData, posts, loadMore, postsContainer, 
                     })
                 }
 
-                {	// show load more button only if there is an active listing
+                {	
+                    // show load more button only if there is an active listing shown
                     listingData.listing && !isLoading &&
-                        <button className="load-more-btn" onClick={ loadMore }>Load More</button>
+                    <button className="load-more-btn" onClick={ loadMore }>Load More</button>
                 }
 
-                {   // show loader if the application is loading
+                {   
+                    // show loader if the application is loading something
                     isLoading &&
                     <div className="loader"></div>
                 }

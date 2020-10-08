@@ -16,11 +16,11 @@ export default function Sidebar({ loadListing, listingData })
     }
 
     const listings = [ 
-        { name: 'hot',  icon: 'lab la-hotjar' },
-        { name: 'new',  icon: 'las la-plus-circle' },
-        { name: 'rising',  icon: 'las la-chart-area' },
-        { name: 'controversial', icon: 'las la-bolt' },
-        { name: 'top', icon: 'las la-trophy' }
+        { name: 'Hot',  icon: 'lab la-hotjar' },
+        { name: 'New',  icon: 'las la-plus-circle' },
+        { name: 'Rising',  icon: 'las la-chart-area' },
+        { name: 'Controversial', icon: 'las la-bolt' },
+        { name: 'Top', icon: 'las la-trophy' }
     ];
     
     return (

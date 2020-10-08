@@ -19,12 +19,13 @@ function App()
 		setIsLoading( true );
 		var params = next ? { after: listingData.after } : {};
 
+		// reset posts array if it's a new listing, 
+		// to avoid merging the current posts with the new ones
 		if( !next )
-		{
 			setPosts( [] );
-		}
 
-		redditGet( listing, params ).then( json => {
+		// fetch listing data
+		redditGet( listing.toLowerCase(), params ).then( json => {
 			
 			// append new posts
 			if( next )
@@ -39,8 +40,8 @@ function App()
 
 				
 			setListingData({ listing, after: json.data.after });
-
 			setIsLoading( false );
+
         });
 	}
 
@@ -54,15 +55,23 @@ function App()
 
 	// load default listing on mount
 	useEffect( () => {
-		loadListing( 'hot' ); 
+		loadListing( 'Hot' ); 
 
 		// eslint-disable-next-line
 	}, []);
 
 	return (
 		<div className="reddit-client-container">
+			
 			<Sidebar loadListing={ loadListing } listingData={ listingData } />
-			<Content listingData={ listingData } posts={ posts } loadMore={ loadMore } postsContainer={ postsContainer } isLoading={ isLoading } />			
+			
+			<Content listingData={ listingData } 
+				posts={ posts } 
+				loadMore={ loadMore } 
+				postsContainer={ postsContainer } 
+				isLoading={ isLoading } 
+				loadListing={ loadListing } />			
+				
 		</div>
 	);
 }
