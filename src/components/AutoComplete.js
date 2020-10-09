@@ -6,6 +6,7 @@ export default function AutoComplete({ placeholder, className, onItemSelected })
     const [ term, setTerm ] = useState( '' );
     const [ suggestions, setSuggestions ] = useState( [] );
     const [ currentSuggestion, setCurrentSuggestion ] = useState( -1 ); // represents an id in `suggestions` array
+    const [ isLoading, setIsLoading ] = useState( false );
 
 
     // catch arrow keys & enter in the autocomplete input
@@ -69,6 +70,8 @@ export default function AutoComplete({ placeholder, className, onItemSelected })
             
             var endpoint = 'search';
 
+            setIsLoading( true );
+            
             // send search term to the endpoint
             redditGet( endpoint, params ).then( json => {
 
@@ -80,6 +83,8 @@ export default function AutoComplete({ placeholder, className, onItemSelected })
                     results = results.map( item => ( item.data ));
                     setSuggestions( results) ;
                 }
+
+                setIsLoading( false );
 
             });
 
@@ -94,12 +99,18 @@ export default function AutoComplete({ placeholder, className, onItemSelected })
 
     return (
         <>
+            <i class="las la-search"></i>
+            
             <input type="text" 
                 className={ `autocomplete-input ${ className }` } 
                 placeholder={ placeholder } 
                 value={ term } 
                 onChange={ e => setTerm( e.target.value ) }
                 onKeyUp={ onKeyUp } />
+
+            { isLoading &&
+                <span className="autocomplete-loader"></span>
+            }
 
             <div className="autocomplete-suggestions">
                 {

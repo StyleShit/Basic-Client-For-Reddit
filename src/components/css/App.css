@@ -126,9 +126,32 @@ body
 	border: none;
 	background-color: #FFF;
 	border-radius: 100rem;
-	padding: .5rem 1rem;
+	padding: .5rem 1rem .5rem 2rem;
 	width: 17rem;
 	box-shadow: 0 0 20px 0 rgba( 0,0,0,.1 );
+}
+
+.search-container .la-search
+{
+	position: absolute;
+	z-index: 3;
+	left: .7rem;
+	top: .65rem;
+	color: rgba( 0,0,0,.4 );
+}
+
+.search-container .autocomplete-loader
+{
+	height: 1em;
+	width: 1em;
+	border: 1px solid #F55121;
+	border-top-color: transparent;
+	border-radius: 100%;
+	position: absolute;
+	z-index: 3;
+	right: .7rem;
+	top: .65rem;
+	animation: spin .3s linear infinite;
 }
 
 .search-container .autocomplete-suggestions
