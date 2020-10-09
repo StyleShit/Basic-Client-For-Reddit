@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function Post({ post:{ data } })
 {
+    // determine if the full sized image will be shown
+    const [ showFullImage, setShowFullImage ] = useState( false );
+
     // set flair styling
     var flair = {
         bg: data.link_flair_background_color,
@@ -91,7 +94,7 @@ export default function Post({ post:{ data } })
     return (
         <div className="reddit-post">
 
-            {  <img alt={ data.title } src={ imageSrc } /> }
+            <img alt={ data.title } src={ imageSrc } onClick={ e => { setShowFullImage( prev => !prev ) }} />
 
             <div className="post-text">
                 <h3 className="post-title">
@@ -118,10 +121,18 @@ export default function Post({ post:{ data } })
             </div>
 
             <div className="post-score">
-                    <span className="upvote"></span>
-                    { formatNumber( data.ups ) }
-                    <span className="downvote"></span>
+                <span className="upvote"></span>
+                { formatNumber( data.ups ) }
+                <span className="downvote"></span>
+            </div>
+
+            { showFullImage &&
+                <div className="post-full-image">
+                    <a href={ data.url } target="__blank" rel="noopener noreferrer">
+                        <img alt={ data.title } src={ data.url } />
+                    </a>
                 </div>
+            }
         </div>
     )
 }

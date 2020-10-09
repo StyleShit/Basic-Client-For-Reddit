@@ -215,6 +215,7 @@ body
 .reddit-post
 {
 	display: flex;
+	flex-wrap: wrap;
 	align-items: center;
 	padding: 2rem 4rem;
 	border-bottom: 1px solid rgba( 0,0,0,.05 );
@@ -227,6 +228,11 @@ body
 	height: auto;
 	margin-right: 2rem;
 	border-radius: .5rem;
+}
+
+.reddit-post .post-text
+{
+	flex: 1 1 0;
 }
 
 .reddit-post .post-title
@@ -320,6 +326,19 @@ body
 	border-top-color: currentColor;
 	top: 100%;
 	margin-top: .2rem;
+}
+
+.reddit-post .post-full-image
+{
+	width: 100%;
+	text-align: center;
+	margin-top: 2rem;
+}
+
+.reddit-post .post-full-image img
+{
+	max-width: 100%;
+	height: auto;
 }
 
 .load-more-btn
