@@ -4,6 +4,8 @@ A small basic client for reddit with a new design, inspired from this Dribble sh
 
 https://dribbble.com/shots/3257279-Reddit-Trainy
 
+![Client Preview](img/basic-client-for-reddit.png "Client Preview")
+
 
 ## Installation:
 
