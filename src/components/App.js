@@ -14,7 +14,7 @@ function App()
 
 	// lodd listing by name
 	// set `next = true` to load next page of current listing
-	function loadListing( listing, next = false )
+	function loadListing( { listing, icon }, next = false )
 	{
 		setIsLoading( true );
 		var params = next ? { after: listingData.after } : {};
@@ -39,7 +39,7 @@ function App()
 			}
 
 				
-			setListingData({ listing, after: json.data.after });
+			setListingData({ listing, after: json.data.after, icon });
 			setIsLoading( false );
 
         });
@@ -49,13 +49,13 @@ function App()
 	function loadMore()
 	{
 		setIsLoading( true );
-		loadListing( listingData.listing, true );
+		loadListing( listingData, true );
 	}
 
 
 	// load default listing on mount
 	useEffect( () => {
-		loadListing( 'Hot' ); 
+		loadListing({ listing: 'Hot' }); 
 
 		// eslint-disable-next-line
 	}, []);

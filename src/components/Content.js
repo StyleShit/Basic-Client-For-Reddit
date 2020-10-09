@@ -9,7 +9,10 @@ export default function Content({ listingData, posts, loadMore, postsContainer, 
     function onItemSelected( item )
 	{
         // load the selected subrteddit
-		loadListing( item.display_name_prefixed );
+		loadListing({ 
+            listing: item.display_name_prefixed,
+            icon: item.icon_img ? item.icon_img : 'img/default-sr-icon.png'
+        });
     }
     
     return (
@@ -17,6 +20,10 @@ export default function Content({ listingData, posts, loadMore, postsContainer, 
 
             <div className="top-bar">
                 <h2 className="listing-name">
+                    { listingData.icon && !isLoading &&
+                        <img alt={ `${ listingData.listing } logo` } src={ listingData.icon } />
+                    }
+
                     { listingData.listing && !isLoading ? listingData.listing : 'Loading...' }
                 </h2>
 

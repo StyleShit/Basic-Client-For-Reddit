@@ -12,7 +12,7 @@ export default function Sidebar({ loadListing, listingData })
 
     function onClick( e )
     {
-        loadListing( e.target.dataset.listing );        
+        loadListing({ listing: e.target.dataset.listing });
     }
 
     const listings = [ 
