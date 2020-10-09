@@ -99,7 +99,7 @@ export default function AutoComplete({ placeholder, className, onItemSelected })
 
     return (
         <>
-            <i class="las la-search"></i>
+            <i className="las la-search"></i>
             
             <input type="text" 
                 className={ `autocomplete-input ${ className }` } 
