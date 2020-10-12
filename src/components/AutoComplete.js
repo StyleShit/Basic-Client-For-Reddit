@@ -9,6 +9,15 @@ export default function AutoComplete({ placeholder, className, onItemSelected })
     const [ isLoading, setIsLoading ] = useState( false );
 
 
+    // reset autocomplete properties to default states
+    function reset()
+    {
+        setTerm( '' );
+        setSuggestions( [] );
+        setCurrentSuggestion( -1 );
+    }
+
+
     // catch arrow keys & enter in the autocomplete input
     function onKeyUp( e )
     {
@@ -38,9 +47,7 @@ export default function AutoComplete({ placeholder, className, onItemSelected })
                 if( currentSuggestion !== -1 )
                 {
                     onItemSelected( suggestions[currentSuggestion] );
-                    setTerm( '' );
-                    setSuggestions( [] );
-                    setCurrentSuggestion( -1 );
+                    reset();
                 }
 
                 break;
@@ -51,6 +58,14 @@ export default function AutoComplete({ placeholder, className, onItemSelected })
     }
     
 
+    // handle autocomplete item click
+    function onClick( e, item )
+    {
+        onItemSelected( item );
+        reset();
+    }
+
+    
     // when the term changes, invoke the autocomplete
     useEffect( () => {
 
@@ -116,7 +131,7 @@ export default function AutoComplete({ placeholder, className, onItemSelected })
                 {
                     // display the autocomplete suggestions
                     suggestions.map(( item, i ) => (
-                        <span className={ `suggestion ${ currentSuggestion === i ? 'current-suggestion' : '' }` } onClick={ () => { onItemSelected( item ) } } key={ i }>
+                        <span className={ `suggestion ${ currentSuggestion === i ? 'current-suggestion' : '' }` } onClick={ e => { onClick( e, item ) } } key={ i }>
                             <img alt={ item.display_name_prefixed } src={ item.icon_img ? item.icon_img : 'img/default-sr-icon.png' } />
                             { item.display_name_prefixed }
                         </span>
